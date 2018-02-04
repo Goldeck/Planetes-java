@@ -4,7 +4,7 @@ public class Force {
 	double x;
 	double y;
 	double z;
-	
+
 	public double getX() {
 		return x;
 	}
