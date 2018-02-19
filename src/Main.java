@@ -39,9 +39,10 @@ public class Main {
         Planete planeteactuelle=planeteEntre[planeteIndex];
         Force force = calculForces(planeteEntre, planeteIndex);
         double G=6.67*Math.pow(10,-11);
+        //double x=planeteactuelle.getX()+ G/2*force.getX()*temps*temps+planeteactuelle.vx*temps ;
         double x=planeteactuelle.getX()+ G/2*force.getX()*temps*temps+planeteactuelle.vx*temps ;
-        double y=planeteactuelle.getY()+ G/2*force.getY()*temps*temps+planeteactuelle.vy*temps ;;
-        double z=planeteactuelle.getZ()+ G/2*force.getZ()*temps*temps+planeteactuelle.vz*temps ;;
+        double y=planeteactuelle.getY()+ G/2*force.getY()*temps*temps+planeteactuelle.vy*temps ;
+        double z=planeteactuelle.getZ()+ G/2*force.getZ()*temps*temps+planeteactuelle.vz*temps ;
         double vx=G*force.getX()*temps+planeteactuelle.vx;
         double vy=G*force.getY()*temps+planeteactuelle.vy;
         double vz=G*force.getZ()*temps+planeteactuelle.vz;
@@ -51,20 +52,30 @@ public class Main {
     }
 
     private static Force calculForces(Planete[] planeteEntre, int planeteIndex) {
-        Force sommefinal =new Force();
+        Force sommefinal =new Force(0,0,0);
         for(int i=0;i<planeteEntre.length;i++){
             if(i!=planeteIndex) {
-                double dx = planeteEntre[i].getX() - planeteEntre[planeteIndex].getX();
-                double dy = planeteEntre[i].getY() - planeteEntre[planeteIndex].getY();
-                double dz = planeteEntre[i].getZ() - planeteEntre[planeteIndex].getZ();
+            	double d = distance(planeteEntre[planeteIndex],planeteEntre[i]);
+                double dx = (planeteEntre[i].getX() - planeteEntre[planeteIndex].getX())*planeteEntre[i].getPlanetMasse()/(d*d*d);
+                double dy = (planeteEntre[i].getY() - planeteEntre[planeteIndex].getY())*planeteEntre[i].getPlanetMasse()/(d*d*d);
+                double dz = (planeteEntre[i].getZ() - planeteEntre[planeteIndex].getZ())*planeteEntre[i].getPlanetMasse()/(d*d*d);
 
-                sommefinal.setX(sommefinal.getX() + planeteEntre[i].getPlanetMasse() / (dx * dx));
-                sommefinal.setY(sommefinal.getY() + planeteEntre[i].getPlanetMasse() / (dy * dy));
-                sommefinal.setZ(sommefinal.getZ() + planeteEntre[i].getPlanetMasse() / (dz * dz));
-
+                //sommefinal.setX(sommefinal.getX() + planeteEntre[i].getPlanetMasse() / (dx * dx));
+                //sommefinal.setY(sommefinal.getY() + planeteEntre[i].getPlanetMasse() / (dy * dy));
+                //sommefinal.setZ(sommefinal.getZ() + planeteEntre[i].getPlanetMasse() / (dz * dz));
+                sommefinal.setX(sommefinal.getX() + dx);
+                sommefinal.setY(sommefinal.getY() + dy);
+                sommefinal.setZ(sommefinal.getZ() + dz);
             }
         }
         return  sommefinal;
+    }
+    
+    private static double distance(Planete A,Planete B) {
+    	double dx=A.getX()-B.getX();
+    	double dy=A.getY()-B.getY();
+    	double dz=A.getZ()-B.getZ();
+    	return Math.sqrt(dx*dx+dy*dy+dz*dz);
     }
 
 
