@@ -2,18 +2,18 @@ public class Main {
 
 
     public static void main(String[] args) {
-
-        Planete earth = new Planete("Terre", 350000, 0, 0, 0,0,0,0);
+//3.84 4 e 8
+        Planete earth = new Planete("Terre", 5.972*Math.pow(10,24), 0, 0, 0,0,0,0);
         String earthName = earth.getPlanetName();
         System.out.println("le nom de la première planete est :");
         System.out.println(earthName);
-        Planete moon = new Planete("lune", 100, 1, 1, 1,0,0,0);
+        Planete moon = new Planete("lune", 7.342*Math.pow(10,22), 3.844*Math.pow(10,8), 0, 0,0,1022.222,0);
 
         Planete[] PlaneteEntre = {earth, moon};
         System.out.println(PlaneteEntre.length);
         Planete.showdata(PlaneteEntre);
 
-        simulation(PlaneteEntre, 1, 30);
+        simulation(PlaneteEntre, 3600, 10000);
     }
 
     private static void simulation(Planete[] planeteEntre, int temps, int iteration) {
@@ -60,9 +60,6 @@ public class Main {
                 double dy = (planeteEntre[i].getY() - planeteEntre[planeteIndex].getY())*planeteEntre[i].getPlanetMasse()/(d*d*d);
                 double dz = (planeteEntre[i].getZ() - planeteEntre[planeteIndex].getZ())*planeteEntre[i].getPlanetMasse()/(d*d*d);
 
-                //sommefinal.setX(sommefinal.getX() + planeteEntre[i].getPlanetMasse() / (dx * dx));
-                //sommefinal.setY(sommefinal.getY() + planeteEntre[i].getPlanetMasse() / (dy * dy));
-                //sommefinal.setZ(sommefinal.getZ() + planeteEntre[i].getPlanetMasse() / (dz * dz));
                 sommefinal.setX(sommefinal.getX() + dx);
                 sommefinal.setY(sommefinal.getY() + dy);
                 sommefinal.setZ(sommefinal.getZ() + dz);
